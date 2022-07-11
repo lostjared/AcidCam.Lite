@@ -11,6 +11,8 @@ class AC_MainWindow : public QMainWindow {
 public:
     AC_MainWindow(QWidget *parent = 0);
 
+public slots:
+    void selectList();
 private:
     QLineEdit *list_filename;
     QPushButton *list_open;
