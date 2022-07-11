@@ -88,7 +88,7 @@ void AC_DisplayWindow::paintEvent(QPaintEvent *) {
     if(cap.read(m)) {
         // display m
         // update counters
-        ac::CallFilter(playback[playback_index], m);
+        ac::CallFilter(playback.at(playback_index), m);
         QImage img;
         img = Mat2QImage(m);
         painter.fillRect(QRect(0, 0, width(), height()), QBrush("#000000"));
@@ -100,7 +100,7 @@ void AC_DisplayWindow::paintEvent(QPaintEvent *) {
         font.setBold(true);
         painter.setPen(pen);
         painter.setFont(font);
-        painter.drawText(25, 25, playback[playback_index].c_str());
+        painter.drawText(25, 25, playback.at(playback_index).c_str());
     }
 }
 
