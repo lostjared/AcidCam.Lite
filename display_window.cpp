@@ -3,11 +3,11 @@
 #include<fstream>
 
 AC_DisplayWindow::AC_DisplayWindow(QWidget *parent) : QDialog(parent) {
-
+    ac::init();
 }
 
 void AC_DisplayWindow::update() {
-
+    
 }
 
 void AC_DisplayWindow::setIndex(int index) {
@@ -35,11 +35,19 @@ bool AC_DisplayWindow::loadList(QString lst) {
 }
 
 bool AC_DisplayWindow::openCamera(int index, int w, int h) {
+#ifdef _WIN32
     cap.open(index, cv::CAP_DSHOW);
+#else
+    cap.open(index);
+#endif
     if(cap.isOpened()) {
         cap.set(cv::CAP_PROP_FRAME_WIDTH, w);
         cap.set(cv::CAP_PROP_FRAME_HEIGHT, h);
         cap.set(cv::CAP_PROP_FPS, 24);
+        timer = new QTimer(this);
+        timer->setInterval(1000/24/2);
+        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+        timer->start();
         return true;
     }
     return false;

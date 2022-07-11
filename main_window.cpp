@@ -49,6 +49,9 @@ void AC_MainWindow::startProgram() {
             QMessageBox::information(this, tr("Error opening playback list"), tr("Error opening playback list"));
             return;           
         }
-        display_window->openCamera(num, 1280, 720);
+        if(!display_window->openCamera(num, 1280, 720)) {
+            QMessageBox::information(this, tr("Could not start camera. Wrong camera device?"), tr("Could not start camera, wrong device indeX?"));
+            return;
+        }
     }
 }
