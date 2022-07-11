@@ -1,6 +1,8 @@
 #include"main_window.hpp"
 #include<QLabel>
 #include<QFileDialog>
+#include"display_window.hpp"
+#include<QMessageBox>
 
 AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("AcidCam.Lite");
@@ -21,6 +23,10 @@ AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     connect(start_program, SIGNAL(clicked()), this, SLOT(startProgram()));
 
+    display_window = new AC_DisplayWindow(this);
+    display_window->hide();
+    display_window->setIndex(0);
+
 }
 
 void AC_MainWindow::selectList() {
@@ -31,5 +37,11 @@ void AC_MainWindow::selectList() {
 }
 
 void AC_MainWindow::startProgram() {
-
+    if(list_filename->text().length() > 0) {
+        display_window->setIndex(0);
+        if(!display_window->loadList(list_filename->text())) {
+            QMessageBox::information(this, tr("Error opening playback list"), tr("Error opening playback list"));
+            return;           
+        }
+    }
 }

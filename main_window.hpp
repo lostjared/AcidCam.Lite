@@ -6,6 +6,8 @@
 #include<QLineEdit>
 #include<QPushButton>
 
+class AC_DisplayWindow;
+
 class AC_MainWindow : public QMainWindow {
     Q_OBJECT
 public:
@@ -18,6 +20,7 @@ private:
     QLineEdit *list_filename;
     QPushButton *list_open;
     QPushButton *start_program;
+    AC_DisplayWindow *display_window;
 };
 
 #endif
