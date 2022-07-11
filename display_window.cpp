@@ -40,8 +40,12 @@ bool AC_DisplayWindow::loadList(QString lst) {
     while(!file.eof()) {
         std::string s;
         std::getline(file, s);
-        if(file) 
-            playback.push_back(s);
+        if(file) {
+            if(std::find(ac::solo_filter.begin(), ac::solo_filter.end(), s) != ac::solo_filter.end())
+                playback.push_back(s);
+            else
+                std::cerr << "ac-lite: Filter " << s << " not found!.\n";
+        }
     }
     file.close();
     return true;
