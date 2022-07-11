@@ -22,7 +22,7 @@ void AC_DisplayWindow::update() {
 
 void AC_DisplayWindow::setIndex(int index) {
     playback_index = index;
-    if(playback_index > static_cast<int>(playback.size())) {
+    if(playback_index > static_cast<int>(playback.size()-1)) {
         playback_index = 0;
     }
 }
