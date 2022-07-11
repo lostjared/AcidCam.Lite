@@ -13,8 +13,8 @@ QT += widgets
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-LDFLAGS=`pkg-config opencv4 acidcam --libs`
-CFLAGS=`pkg-config opencv4 acidcam --cflags`
+LIBS +=`pkg-config opencv4 acidcam --libs`
+QMAKE_CXXFLAGS +=`pkg-config opencv4 acidcam --cflags`
 # Input
 HEADERS += display_window.hpp main_window.hpp
 SOURCES += display_window.cpp main.cpp main_window.cpp
