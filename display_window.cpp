@@ -1,13 +1,14 @@
 #include"display_window.hpp"
 #include"acidcam/ac.h"
 #include<fstream>
+#include<QPainter>
 
 AC_DisplayWindow::AC_DisplayWindow(QWidget *parent) : QDialog(parent) {
     ac::init();
 }
 
 void AC_DisplayWindow::update() {
-    
+    repaint();
 }
 
 void AC_DisplayWindow::setIndex(int index) {
@@ -44,6 +45,7 @@ bool AC_DisplayWindow::openCamera(int index, int w, int h) {
         cap.set(cv::CAP_PROP_FRAME_WIDTH, w);
         cap.set(cv::CAP_PROP_FRAME_HEIGHT, h);
         cap.set(cv::CAP_PROP_FPS, 24);
+        this->setGeometry(0, 0, w, h);
         timer = new QTimer(this);
         timer->setInterval(1000/24/2);
         connect(timer, SIGNAL(timeout()), this, SLOT(update()));
@@ -51,4 +53,19 @@ bool AC_DisplayWindow::openCamera(int index, int w, int h) {
         return true;
     }
     return false;
+}
+
+void AC_DisplayWindow::paintEvent(QPaintEvent *) {
+
+    QPainter painter(this);
+    cv::Mat m;
+    if(cap.read(m)) {
+        // display m
+        // update counters
+        QImage img;
+        img = Mat2QImage(m);
+        painter.fillRect(QRect(0, 0, width(), height()), QBrush("#000000"));
+        painter.drawImage(QRect(0, 0, width(), height()), img);
+    }
+
 }
