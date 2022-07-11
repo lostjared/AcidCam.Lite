@@ -13,9 +13,11 @@ public:
 
 public slots:
     void selectList();
+    void startProgram();
 private:
     QLineEdit *list_filename;
     QPushButton *list_open;
+    QPushButton *start_program;
 };
 
 #endif

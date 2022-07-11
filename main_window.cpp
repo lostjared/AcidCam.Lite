@@ -4,7 +4,7 @@
 
 AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("AcidCam.Lite");
-    setFixedSize(400, 600);
+    setFixedSize(290, 180);
 
     QLabel *lbl = new QLabel(this);
     lbl->setText("Playback: ");
@@ -15,6 +15,12 @@ AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
     list_open->setGeometry(210, 50, 50, 25);
 
     connect(list_open, SIGNAL(clicked()), this, SLOT(selectList()));
+
+    start_program = new QPushButton(tr("Start"), this);
+    start_program->setGeometry(25, 110, 100, 25);
+
+    connect(start_program, SIGNAL(clicked()), this, SLOT(startProgram()));
+
 }
 
 void AC_MainWindow::selectList() {
@@ -22,4 +28,8 @@ void AC_MainWindow::selectList() {
     if(fileName.length() > 0) {
         list_filename->setText(fileName);
     }
+}
+
+void AC_MainWindow::startProgram() {
+
 }
