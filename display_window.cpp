@@ -2,9 +2,11 @@
 #include"acidcam/ac.h"
 #include<fstream>
 #include<QPainter>
+#include<QKeyEvent>
 
 AC_DisplayWindow::AC_DisplayWindow(QWidget *parent) : QDialog(parent) {
     ac::init();
+    setWindowTitle("AcidCam Lite - Playback");
 }
 
 void AC_DisplayWindow::update() {
@@ -45,6 +47,16 @@ bool AC_DisplayWindow::loadList(QString lst) {
     return true;
 }
 
+void AC_DisplayWindow::keyPressEvent(QKeyEvent *ke) {
+    if(ke->key() == Qt::Key_Escape) {
+        exit(0);
+    }
+    if(ke->key() == Qt::Key_F)
+        showFullScreen();
+    if(ke->key() == Qt::Key_D)
+        showNormal();
+}
+
 bool AC_DisplayWindow::openCamera(int index, int w, int h) {
 #ifdef _WIN32
     cap.open(index, cv::CAP_DSHOW);
@@ -57,7 +69,7 @@ bool AC_DisplayWindow::openCamera(int index, int w, int h) {
         cap.set(cv::CAP_PROP_FPS, 24);
         this->setGeometry(0, 0, w, h);
         timer = new QTimer(this);
-        timer->setInterval(1000/24/2);
+        timer->setInterval(1000/24/8);
         connect(timer, SIGNAL(timeout()), this, SLOT(update()));
         timer->start();
         return true;

@@ -28,6 +28,7 @@ public:
     bool loadList(QString lst);
     bool openCamera(int index, int w, int h);
     void paintEvent(QPaintEvent *p);
+    void keyPressEvent(QKeyEvent *ke);
     void setDelay(int d);
 private:
     std::vector<std::string> playback;
