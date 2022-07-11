@@ -35,6 +35,12 @@ bool AC_DisplayWindow::loadList(QString lst) {
 }
 
 bool AC_DisplayWindow::openCamera(int index, int w, int h) {
-
-    return true;
+    cap.open(index, cv::CAP_DSHOW);
+    if(cap.isOpened()) {
+        cap.set(cv::CAP_PROP_FRAME_WIDTH, w);
+        cap.set(cv::CAP_PROP_FRAME_HEIGHT, h);
+        cap.set(cv::CAP_PROP_FPS, 24);
+        return true;
+    }
+    return false;
 }

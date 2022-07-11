@@ -6,6 +6,8 @@
 #include<vector>
 #include<string>
 
+#include"acidcam/ac.h"
+
 class AC_DisplayWindow : public QDialog {
     Q_OBJECT
 public:
@@ -17,6 +19,7 @@ public:
 private:
     std::vector<std::string> playback;
     int playback_index = 0;
+    cv::VideoCapture cap;
 };
 
 
