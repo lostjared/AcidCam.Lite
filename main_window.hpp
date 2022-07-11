@@ -18,6 +18,7 @@ public slots:
     void startProgram();
 private:
     QLineEdit *list_filename;
+    QLineEdit *camera_index;
     QPushButton *list_open;
     QPushButton *start_program;
     AC_DisplayWindow *display_window;

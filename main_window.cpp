@@ -19,13 +19,18 @@ AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(list_open, SIGNAL(clicked()), this, SLOT(selectList()));
 
     start_program = new QPushButton(tr("Start"), this);
-    start_program->setGeometry(25, 110, 100, 25);
+    start_program->setGeometry(25, 140, 100, 25);
 
     connect(start_program, SIGNAL(clicked()), this, SLOT(startProgram()));
 
     display_window = new AC_DisplayWindow(this);
     display_window->hide();
     display_window->setIndex(0);
+
+    camera_index = new QLineEdit("0", this);
+    QLabel *lblx = new QLabel(tr("Camera: "), this);
+    lblx->setGeometry(25, 85, 80, 25);
+    camera_index->setGeometry(180, 85, 100, 25);
 
 }
 
@@ -37,11 +42,13 @@ void AC_MainWindow::selectList() {
 }
 
 void AC_MainWindow::startProgram() {
-    if(list_filename->text().length() > 0) {
+    int num = atoi(camera_index->text().toStdString().c_str());
+    if(list_filename->text().length() > 0 && num >= 0) {
         display_window->setIndex(0);
         if(!display_window->loadList(list_filename->text())) {
             QMessageBox::information(this, tr("Error opening playback list"), tr("Error opening playback list"));
             return;           
         }
+        display_window->openCamera(num, 1280, 720);
     }
 }

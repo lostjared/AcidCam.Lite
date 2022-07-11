@@ -33,3 +33,8 @@ bool AC_DisplayWindow::loadList(QString lst) {
     file.close();
     return true;
 }
+
+bool AC_DisplayWindow::openCamera(int index, int w, int h) {
+
+    return true;
+}

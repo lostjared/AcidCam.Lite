@@ -13,6 +13,7 @@ public:
     void update();
     void setIndex(int index);
     bool loadList(QString lst);
+    bool openCamera(int index, int w, int h);
 private:
     std::vector<std::string> playback;
     int playback_index = 0;
