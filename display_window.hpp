@@ -3,11 +3,19 @@
 
 #include<QDialog>
 #include<QWidget>
+#include<vector>
+#include<string>
 
 class AC_DisplayWindow : public QDialog {
     Q_OBJECT
 public:
     AC_DisplayWindow(QWidget *parent = 0);
+    void update();
+    void setIndex(int index);
+    bool loadList(QString lst);
+private:
+    std::vector<std::string> playback;
+    int playback_index = 0;
 };
 
 
