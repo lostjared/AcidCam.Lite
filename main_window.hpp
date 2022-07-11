@@ -21,6 +21,7 @@ private:
     QLineEdit *camera_index;
     QPushButton *list_open;
     QPushButton *start_program;
+    QLineEdit *input_delay;
     AC_DisplayWindow *display_window;
 };
 

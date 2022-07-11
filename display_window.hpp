@@ -28,11 +28,13 @@ public:
     bool loadList(QString lst);
     bool openCamera(int index, int w, int h);
     void paintEvent(QPaintEvent *p);
+    void setDelay(int d);
 private:
     std::vector<std::string> playback;
     int playback_index = 0;
     cv::VideoCapture cap;
     QTimer *timer;
+    int delay = (24 * 30);
 };
 
 

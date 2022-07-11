@@ -6,7 +6,7 @@
 
 AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("AcidCam.Lite");
-    setFixedSize(290, 180);
+    setFixedSize(290, 190);
 
     QLabel *lbl = new QLabel(this);
     lbl->setText("Playback: ");
@@ -18,8 +18,15 @@ AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     connect(list_open, SIGNAL(clicked()), this, SLOT(selectList()));
 
+
+    QLabel *ilbl = new QLabel(tr("Delay: "), this);
+    ilbl->setGeometry(25, 130, 100, 25);
+
+    input_delay = new QLineEdit("30", this);
+    input_delay->setGeometry(180, 130, 100, 25);
+
     start_program = new QPushButton(tr("Start"), this);
-    start_program->setGeometry(25, 140, 100, 25);
+    start_program->setGeometry(25, 160, 100, 25);
 
     connect(start_program, SIGNAL(clicked()), this, SLOT(startProgram()));
 
@@ -43,6 +50,7 @@ void AC_MainWindow::selectList() {
 
 void AC_MainWindow::startProgram() {
     int num = atoi(camera_index->text().toStdString().c_str());
+    int delay = atoi(input_delay->text().toStdString().c_str());
     if(list_filename->text().length() > 0 && num >= 0) {
         display_window->setIndex(0);
         if(!display_window->loadList(list_filename->text())) {
@@ -53,6 +61,8 @@ void AC_MainWindow::startProgram() {
             QMessageBox::information(this, tr("Could not start camera. Wrong camera device?"), tr("Could not start camera, wrong device indeX?"));
             return;
         }
+        display_window->setDelay(24 * delay);
         display_window->show();
+        start_program->setEnabled(false);
     }
 }

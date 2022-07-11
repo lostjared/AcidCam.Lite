@@ -8,11 +8,21 @@ AC_DisplayWindow::AC_DisplayWindow(QWidget *parent) : QDialog(parent) {
 }
 
 void AC_DisplayWindow::update() {
+
+    static int frame_counter = 0;
+    if(++frame_counter > delay) {
+        setIndex(playback_index+1);
+        frame_counter = 0;
+    }
+
     repaint();
 }
 
 void AC_DisplayWindow::setIndex(int index) {
     playback_index = index;
+    if(playback_index > static_cast<int>(playback.size())) {
+        playback_index = 0;
+    }
 }
 
 bool AC_DisplayWindow::loadList(QString lst) {
@@ -62,10 +72,24 @@ void AC_DisplayWindow::paintEvent(QPaintEvent *) {
     if(cap.read(m)) {
         // display m
         // update counters
+        ac::CallFilter(playback[playback_index], m);
         QImage img;
         img = Mat2QImage(m);
         painter.fillRect(QRect(0, 0, width(), height()), QBrush("#000000"));
         painter.drawImage(QRect(0, 0, width(), height()), img);
+        QFont font = painter.font();
+        QPen pen = painter.pen();
+        pen.setColor(QColor(QRgb(0xFF0000)));
+        font.setPixelSize(30);
+        font.setBold(true);
+        painter.setPen(pen);
+        painter.setFont(font);
+        painter.drawText(25, 25, playback[playback_index].c_str());
     }
+}
 
+void AC_DisplayWindow::setDelay(int d) {
+    if(delay > 24) {
+        delay = d;
+    }
 }
