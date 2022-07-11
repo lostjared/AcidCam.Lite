@@ -1,5 +1,6 @@
 #include"main_window.hpp"
 #include<QLabel>
+#include<QFileDialog>
 
 AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("AcidCam.Lite");
@@ -17,5 +18,8 @@ AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
 }
 
 void AC_MainWindow::selectList() {
-
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"", tr("Images (*.key)"));
+    if(fileName.length() > 0) {
+        list_filename->setText(fileName);
+    }
 }
