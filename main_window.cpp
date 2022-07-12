@@ -61,7 +61,7 @@ void AC_MainWindow::startProgram() {
             QMessageBox::information(this, tr("Could not start camera. Wrong camera device?"), tr("Could not start camera, wrong device indeX?"));
             return;
         }
-        display_window->setDelay(24 * delay);
+        display_window->setDelay(delay);
         display_window->show();
         start_program->setEnabled(false);
     }

@@ -110,6 +110,6 @@ void AC_DisplayWindow::paintEvent(QPaintEvent *) {
 
 void AC_DisplayWindow::setDelay(int d) {
     if(delay > 24) {
-        delay = d;
+        delay = d * static_cast<int>(cap.get(cv::CAP_PROP_FPS));
     }
 }
