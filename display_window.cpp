@@ -71,7 +71,11 @@ bool AC_DisplayWindow::openCamera(int index, int w, int h) {
         cap.set(cv::CAP_PROP_FRAME_WIDTH, w);
         cap.set(cv::CAP_PROP_FRAME_HEIGHT, h);
         cap.set(cv::CAP_PROP_FPS, 24);
-        this->setGeometry(0, 0, w, h);
+        int wx = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_WIDTH));
+        int hx = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_HEIGHT));
+        this->setGeometry(0, 0, wx, hx);
+        cv::Mat m;
+        cap.read(m);
         timer = new QTimer(this);
         timer->setInterval(1000/24/8);
         connect(timer, SIGNAL(timeout()), this, SLOT(update()));
