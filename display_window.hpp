@@ -30,12 +30,15 @@ public:
     void paintEvent(QPaintEvent *p);
     void keyPressEvent(QKeyEvent *ke);
     void setDelay(int d);
+    void setShuffle(bool s);
+    void shuffleList();
 private:
     std::vector<std::string> playback;
     int playback_index = 0;
     cv::VideoCapture cap;
     QTimer *timer;
     int delay = (24 * 30);
+    bool shuffle_on;
 };
 
 

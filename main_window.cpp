@@ -39,6 +39,9 @@ AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
     lblx->setGeometry(25, 85, 80, 25);
     camera_index->setGeometry(180, 85, 100, 25);
 
+    shuffle_box = new QCheckBox(tr("Shuffle"), this);
+    shuffle_box->setGeometry(135, 160, 100, 25);
+
 }
 
 void AC_MainWindow::selectList() {
@@ -57,6 +60,13 @@ void AC_MainWindow::startProgram() {
             QMessageBox::information(this, tr("Error opening playback list"), tr("Error opening playback list"));
             return;           
         }
+
+        if(shuffle_box->isChecked())
+            display_window->setShuffle(true);
+        else 
+            display_window->setShuffle(false);
+
+
         if(!display_window->openCamera(num, 1280, 720)) {
             QMessageBox::information(this, tr("Could not start camera. Wrong camera device?"), tr("Could not start camera, wrong device indeX?"));
             return;

@@ -3,6 +3,7 @@
 #include<fstream>
 #include<QPainter>
 #include<QKeyEvent>
+#include<algorithm>
 
 AC_DisplayWindow::AC_DisplayWindow(QWidget *parent) : QDialog(parent) {
     ac::init();
@@ -15,9 +16,15 @@ void AC_DisplayWindow::update() {
     if(++frame_counter > delay) {
         setIndex(playback_index+1);
         frame_counter = 0;
+        shuffleList();
     }
 
     repaint();
+}
+
+void AC_DisplayWindow::shuffleList() {
+     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+     std::shuffle (playback.begin(), playback.end(), std::default_random_engine(seed));
 }
 
 void AC_DisplayWindow::setIndex(int index) {
@@ -25,6 +32,10 @@ void AC_DisplayWindow::setIndex(int index) {
     if(playback_index > static_cast<int>(playback.size()-1)) {
         playback_index = 0;
     }
+}
+
+void AC_DisplayWindow::setShuffle(bool s) {
+    shuffle_on = s;
 }
 
 bool AC_DisplayWindow::loadList(QString lst) {
@@ -76,6 +87,8 @@ bool AC_DisplayWindow::openCamera(int index, int w, int h) {
         this->setGeometry(0, 0, wx, hx);
         cv::Mat m;
         cap.read(m);
+        if(shuffle_on)
+            shuffleList();
         timer = new QTimer(this);
         timer->setInterval(1000/24/8);
         connect(timer, SIGNAL(timeout()), this, SLOT(update()));
@@ -90,8 +103,6 @@ void AC_DisplayWindow::paintEvent(QPaintEvent *) {
     QPainter painter(this);
     cv::Mat m;
     if(cap.read(m)) {
-        // display m
-        // update counters
         ac::CallFilter(playback.at(playback_index), m);
         QImage img;
         img = Mat2QImage(m);

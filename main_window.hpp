@@ -5,6 +5,7 @@
 #include<QWidget>
 #include<QLineEdit>
 #include<QPushButton>
+#include<QCheckBox>
 
 class AC_DisplayWindow;
 
@@ -22,6 +23,7 @@ private:
     QPushButton *list_open;
     QPushButton *start_program;
     QLineEdit *input_delay;
+    QCheckBox *shuffle_box;
     AC_DisplayWindow *display_window;
 };
 
