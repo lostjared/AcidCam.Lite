@@ -1,6 +1,6 @@
 #ifndef MAIN_WINDOW_H_
 #define MAIN_WINDOW_H_
-
+#define VERSION_INFO "v0.1"
 #include<QMainWindow>
 #include<QWidget>
 #include<QLineEdit>
