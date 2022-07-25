@@ -61,8 +61,10 @@ void AC_MainWindow::startProgram() {
             return;           
         }
 
-        if(shuffle_box->isChecked())
+        if(shuffle_box->isChecked()) {
             display_window->setShuffle(true);
+            display_window->shuffleList();
+        }
         else 
             display_window->setShuffle(false);
 

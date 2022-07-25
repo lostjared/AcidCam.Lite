@@ -16,21 +16,23 @@ void AC_DisplayWindow::update() {
     if(++frame_counter > delay) {
         setIndex(playback_index+1);
         frame_counter = 0;
-        shuffleList();
     }
 
     repaint();
 }
 
 void AC_DisplayWindow::shuffleList() {
-     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-     std::shuffle (playback.begin(), playback.end(), std::default_random_engine(seed));
+    if(shuffle_on == true) {
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        std::shuffle (playback.begin(), playback.end(), std::default_random_engine(seed));
+    }
 }
 
 void AC_DisplayWindow::setIndex(int index) {
     playback_index = index;
     if(playback_index > static_cast<int>(playback.size()-1)) {
         playback_index = 0;
+        shuffleList();
     }
 }
 
