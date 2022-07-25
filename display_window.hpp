@@ -6,7 +6,7 @@
 #include<vector>
 #include<string>
 #include<QTimer>
-#include"acidcam/ac.h"
+#include"ac.h"
 
 inline QImage Mat2QImage(cv::Mat const& src)
 {
