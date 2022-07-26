@@ -32,6 +32,7 @@ public:
     void setDelay(int d);
     void setShuffle(bool s);
     void shuffleList();
+    void stop();
 private:
     std::vector<std::string> playback;
     int playback_index = 0;

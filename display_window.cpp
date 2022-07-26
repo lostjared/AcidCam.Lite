@@ -126,3 +126,9 @@ void AC_DisplayWindow::setDelay(int d) {
         delay = d * static_cast<int>(cap.get(cv::CAP_PROP_FPS));
     }
 }
+
+void AC_DisplayWindow::stop() {
+    timer->stop();
+    cap.release();
+    hide();
+}

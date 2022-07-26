@@ -52,29 +52,35 @@ void AC_MainWindow::selectList() {
 }
 
 void AC_MainWindow::startProgram() {
-    int num = atoi(camera_index->text().toStdString().c_str());
-    int delay = atoi(input_delay->text().toStdString().c_str());
-    if(list_filename->text().length() > 0 && num >= 0) {
-        display_window->setIndex(0);
-        if(!display_window->loadList(list_filename->text())) {
-            QMessageBox::information(this, tr("Error opening playback list"), tr("Error opening playback list"));
-            return;           
-        }
+    if(mode_start == false) {
+        int num = atoi(camera_index->text().toStdString().c_str());
+        int delay = atoi(input_delay->text().toStdString().c_str());
+        if(list_filename->text().length() > 0 && num >= 0) {
+            display_window->setIndex(0);
+            if(!display_window->loadList(list_filename->text())) {
+                QMessageBox::information(this, tr("Error opening playback list"), tr("Error opening playback list"));
+                return;           
+            }
 
-        if(shuffle_box->isChecked()) {
-            display_window->setShuffle(true);
-            display_window->shuffleList();
-        }
-        else 
-            display_window->setShuffle(false);
+            if(shuffle_box->isChecked()) {
+                display_window->setShuffle(true);
+                display_window->shuffleList();
+            }
+            else 
+                display_window->setShuffle(false);
 
-
-        if(!display_window->openCamera(num, 1280, 720)) {
-            QMessageBox::information(this, tr("Could not start camera. Wrong camera device?"), tr("Could not start camera, wrong device indeX?"));
-            return;
+            if(!display_window->openCamera(num, 1280, 720)) {
+                QMessageBox::information(this, tr("Could not start camera. Wrong camera device?"), tr("Could not start camera, wrong device indeX?"));
+                return;
+            }
+            display_window->setDelay(delay);
+            display_window->show();
+            mode_start = true;
+            start_program->setText(tr("Stop"));
         }
-        display_window->setDelay(delay);
-        display_window->show();
-        start_program->setEnabled(false);
+    } else {
+        mode_start = false;
+        start_program->setText(tr("Start"));
+        display_window->stop();
     }
 }

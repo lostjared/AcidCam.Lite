@@ -25,6 +25,7 @@ private:
     QLineEdit *input_delay;
     QCheckBox *shuffle_box;
     AC_DisplayWindow *display_window;
+    bool mode_start = false;
 };
 
 #endif
