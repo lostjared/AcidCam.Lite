@@ -4,6 +4,7 @@
 
 TEMPLATE = app
 TARGET = AcidCam.Lite
+RC_FILE = win-icon.rc
 INCLUDEPATH += .
 QT += widgets
 # You can make your code fail to compile if you use deprecated APIs.
