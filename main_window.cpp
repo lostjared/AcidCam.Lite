@@ -84,3 +84,7 @@ void AC_MainWindow::startProgram() {
         display_window->stop();
     }
 }
+
+void AC_MainWindow::displayAbout() {
+    QMessageBox::information(this, tr("AcidCam.Lite by LostSideDead Software"), tr("AcidCam.Lite by LostSideDead Software"));
+}

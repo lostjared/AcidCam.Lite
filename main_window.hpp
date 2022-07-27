@@ -17,6 +17,7 @@ public:
 public slots:
     void selectList();
     void startProgram();
+    void displayAbout();
 private:
     QLineEdit *list_filename;
     QLineEdit *camera_index;
