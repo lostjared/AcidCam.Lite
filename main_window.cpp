@@ -3,6 +3,8 @@
 #include<QFileDialog>
 #include"display_window.hpp"
 #include<QMessageBox>
+#include<QMenuBar>
+
 
 AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("AcidCam.Lite");
@@ -41,6 +43,15 @@ AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     shuffle_box = new QCheckBox(tr("Shuffle"), this);
     shuffle_box->setGeometry(135, 160, 100, 25);
+
+    help_menu = menuBar()->addMenu(tr("Help"));
+
+    help_about = new QAction(tr("About"));
+    
+    connect(help_about, SIGNAL(triggered()), this, SLOT(displayAbout()));
+
+    help_menu->addAction(help_about);
+
 
 }
 
@@ -86,5 +97,5 @@ void AC_MainWindow::startProgram() {
 }
 
 void AC_MainWindow::displayAbout() {
-    QMessageBox::information(this, tr("AcidCam.Lite by LostSideDead Software"), tr("AcidCam.Lite by LostSideDead Software"));
+    QMessageBox::information(this, tr("AcidCam.Lite by LostSideDead Software\nhttp://lostsidedead.com"), tr("AcidCam.Lite by LostSideDead Software\nhttp://lostsidedead.com"));
 }
