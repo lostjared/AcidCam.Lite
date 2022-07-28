@@ -105,5 +105,6 @@ void AC_MainWindow::displayAbout() {
 }
 
 void AC_MainWindow::exitProgram() {
+    display_window->stop();
     exit(0);
 }
