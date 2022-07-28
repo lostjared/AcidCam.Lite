@@ -52,6 +52,10 @@ AC_MainWindow::AC_MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     help_menu->addAction(help_about);
 
+    file_menu = menuBar()->addMenu(tr("File"));
+    file_exit = new QAction(tr("Exit"));
+    connect(file_exit, SIGNAL(triggered()), this, SLOT(exitProgram()));
+
 
 }
 
@@ -98,4 +102,8 @@ void AC_MainWindow::startProgram() {
 
 void AC_MainWindow::displayAbout() {
     QMessageBox::information(this, tr("AcidCam.Lite by LostSideDead Software\nhttp://lostsidedead.com"), tr("AcidCam.Lite by LostSideDead Software\nhttp://lostsidedead.com"));
+}
+
+void AC_MainWindow::exitProgram() {
+    exit(0);
 }

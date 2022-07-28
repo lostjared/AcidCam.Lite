@@ -18,6 +18,7 @@ public slots:
     void selectList();
     void startProgram();
     void displayAbout();
+    void exitProgram();
 private:
     QLineEdit *list_filename;
     QLineEdit *camera_index;
@@ -27,8 +28,8 @@ private:
     QCheckBox *shuffle_box;
     AC_DisplayWindow *display_window;
     bool mode_start = false;
-    QMenu *help_menu;
-    QAction *help_about;
+    QMenu *help_menu, *file_menu;
+    QAction *help_about, *file_exit;
 };
 
 #endif
